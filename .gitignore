@@ -15,3 +15,8 @@ hs_err_pid*
 /.classpath
 /.project
 /.idea/
+
+.aider*
+logs/
+.commit0_scripts/
+.github/workflows/

@@ -4,7 +4,6 @@ import org.darkphoenixs.pool.ConnectionPool;
 import org.darkphoenixs.pool.PoolConfig;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisSentinelPool;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Properties;
@@ -39,7 +38,6 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param sentinels  the sentinels
      */
     public RedisSentinelConnPool(final String masterName, final Set<String> sentinels) {
-
         this(new PoolConfig(), masterName, sentinels);
     }
 
@@ -50,10 +48,7 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param masterName the master name
      * @param sentinels  the sentinels
      */
-    public RedisSentinelConnPool(final PoolConfig poolConfig,
-                                 final String masterName,
-                                 final Set<String> sentinels) {
-
+    public RedisSentinelConnPool(final PoolConfig poolConfig, final String masterName, final Set<String> sentinels) {
         this(poolConfig, masterName, sentinels, RedisConfig.DEFAULT_PASSWORD);
     }
 
@@ -65,11 +60,7 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param sentinels  the sentinels
      * @param password   the password
      */
-    public RedisSentinelConnPool(final PoolConfig poolConfig,
-                                 final String masterName,
-                                 final Set<String> sentinels,
-                                 final String password) {
-
+    public RedisSentinelConnPool(final PoolConfig poolConfig, final String masterName, final Set<String> sentinels, final String password) {
         this(poolConfig, masterName, sentinels, password, RedisConfig.DEFAULT_TIMEOUT);
     }
 
@@ -82,15 +73,8 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param password   the password
      * @param timeout    the timeout
      */
-    public RedisSentinelConnPool(final PoolConfig poolConfig,
-                                 final String masterName,
-                                 final Set<String> sentinels,
-                                 final String password,
-                                 final int timeout) {
-
-        this(poolConfig, masterName, sentinels, timeout, timeout, password,
-                RedisConfig.DEFAULT_DATABASE,
-                RedisConfig.DEFAULT_CLIENTNAME);
+    public RedisSentinelConnPool(final PoolConfig poolConfig, final String masterName, final Set<String> sentinels, final String password, final int timeout) {
+        this(poolConfig, masterName, sentinels, timeout, timeout, password, RedisConfig.DEFAULT_DATABASE, RedisConfig.DEFAULT_CLIENTNAME);
     }
 
     /**
@@ -99,7 +83,6 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param properties the properties
      */
     public RedisSentinelConnPool(final Properties properties) {
-
         this(new PoolConfig(), properties);
     }
 
@@ -110,15 +93,7 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param properties the properties
      */
     public RedisSentinelConnPool(final PoolConfig poolConfig, final Properties properties) {
-
-        this(poolConfig,
-                properties.getProperty(RedisConfig.MASTERNAME_PROPERTY),
-                new HashSet<String>(Arrays.asList(properties.getProperty(RedisConfig.SENTINELS_PROPERTY).split(","))),
-                Integer.parseInt(properties.getProperty(RedisConfig.TIMEOUT_PROPERTY, String.valueOf(RedisConfig.DEFAULT_TIMEOUT))),
-                Integer.parseInt(properties.getProperty(RedisConfig.TIMEOUT_PROPERTY, String.valueOf(RedisConfig.DEFAULT_TIMEOUT))),
-                properties.getProperty(RedisConfig.PASSWORD_PROPERTY),
-                Integer.parseInt(properties.getProperty(RedisConfig.DATABASE_PROPERTY, String.valueOf(RedisConfig.DEFAULT_DATABASE))),
-                properties.getProperty(RedisConfig.CLIENTNAME_PROPERTY));
+        this(poolConfig, properties.getProperty(RedisConfig.MASTERNAME_PROPERTY), new HashSet<String>(Arrays.asList(properties.getProperty(RedisConfig.SENTINELS_PROPERTY).split(","))), Integer.parseInt(properties.getProperty(RedisConfig.TIMEOUT_PROPERTY, String.valueOf(RedisConfig.DEFAULT_TIMEOUT))), Integer.parseInt(properties.getProperty(RedisConfig.TIMEOUT_PROPERTY, String.valueOf(RedisConfig.DEFAULT_TIMEOUT))), properties.getProperty(RedisConfig.PASSWORD_PROPERTY), Integer.parseInt(properties.getProperty(RedisConfig.DATABASE_PROPERTY, String.valueOf(RedisConfig.DEFAULT_DATABASE))), properties.getProperty(RedisConfig.CLIENTNAME_PROPERTY));
     }
 
     /**
@@ -133,45 +108,29 @@ public class RedisSentinelConnPool implements ConnectionPool<Jedis> {
      * @param database          the database
      * @param clientName        the client name
      */
-    public RedisSentinelConnPool(final PoolConfig poolConfig,
-                                 final String masterName,
-                                 final Set<String> sentinels,
-                                 final int connectionTimeout,
-                                 final int soTimeout,
-                                 final String password,
-                                 final int database,
-                                 final String clientName) {
-
+    public RedisSentinelConnPool(final PoolConfig poolConfig, final String masterName, final Set<String> sentinels, final int connectionTimeout, final int soTimeout, final String password, final int database, final String clientName) {
         this.pool = new JedisSentinelPool(masterName, sentinels, poolConfig, connectionTimeout, soTimeout, password, database, clientName);
     }
 
     @Override
     public Jedis getConnection() {
-
-        return pool.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(Jedis conn) {
-
-        if (conn != null)
-
-            conn.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(Jedis conn) {
-
-        if (conn != null)
-
-            conn.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Close.
      */
     public void close() {
-
-        pool.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

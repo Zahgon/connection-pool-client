@@ -3,7 +3,6 @@ package org.darkphoenixs.pool.kafka;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.darkphoenixs.pool.ConnectionPool;
-
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,7 +22,6 @@ public class KafkaSharedConnPool implements ConnectionPool<Producer<byte[], byte
     private final Producer<byte[], byte[]> producer;
 
     private KafkaSharedConnPool(Properties properties) {
-
         this.producer = new KafkaProducer<byte[], byte[]>(properties);
     }
 
@@ -37,15 +35,7 @@ public class KafkaSharedConnPool implements ConnectionPool<Producer<byte[], byte
      * @return the instance
      */
     public synchronized static KafkaSharedConnPool getInstance(final String brokers, final String codec, final String keySer, final String valSer) {
-
-        Properties properties = new Properties();
-
-        properties.setProperty(KafkaConfig.BOOTSTRAP_SERVERS_PROPERTY, brokers);
-        properties.setProperty(KafkaConfig.COMPRESSION_CODEC_PROPERTY, codec);
-        properties.setProperty(KafkaConfig.KEY_SERIALIZER_PROPERTY, keySer);
-        properties.setProperty(KafkaConfig.VAL_SERIALIZER_PROPERTY, valSer);
-
-        return getInstance(properties);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -55,45 +45,28 @@ public class KafkaSharedConnPool implements ConnectionPool<Producer<byte[], byte
      * @return the instance
      */
     public synchronized static KafkaSharedConnPool getInstance(final Properties properties) {
-
-        if (pool.get() == null)
-
-            pool.set(new KafkaSharedConnPool(properties));
-
-        return pool.get();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Producer<byte[], byte[]> getConnection() {
-
-        return producer;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(Producer<byte[], byte[]> conn) {
-
-        if (conn != null)
-
-            conn.flush();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(Producer<byte[], byte[]> conn) {
-
-        if (conn != null)
-
-            conn.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Close.
      */
     public void close() {
-
-        producer.flush();
-        
-        producer.close();
-
-        pool.set(null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

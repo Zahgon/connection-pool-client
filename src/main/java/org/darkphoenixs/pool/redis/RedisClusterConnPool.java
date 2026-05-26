@@ -4,7 +4,6 @@ import org.darkphoenixs.pool.ConnectionPool;
 import org.darkphoenixs.pool.PoolConfig;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Properties;
@@ -29,7 +28,6 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param clusterNodes the jedis cluster nodes
      */
     public RedisClusterConnPool(final Set<HostAndPort> clusterNodes) {
-
         this(clusterNodes, RedisConfig.DEFAULT_TIMEOUT);
     }
 
@@ -39,9 +37,7 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param clusterNodes the cluster nodes
      * @param timeout      the timeout
      */
-    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes,
-                                final int timeout) {
-
+    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes, final int timeout) {
         this(clusterNodes, timeout, timeout);
     }
 
@@ -52,10 +48,7 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param connectionTimeout the connection timeout
      * @param soTimeout         the so timeout
      */
-    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes,
-                                final int connectionTimeout,
-                                final int soTimeout) {
-
+    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes, final int connectionTimeout, final int soTimeout) {
         this(clusterNodes, connectionTimeout, soTimeout, RedisConfig.DEFAULT_MAXATTE);
     }
 
@@ -67,11 +60,7 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param soTimeout         the so timeout
      * @param maxAttempts       the max attempts
      */
-    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes,
-                                final int connectionTimeout,
-                                final int soTimeout,
-                                final int maxAttempts) {
-
+    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes, final int connectionTimeout, final int soTimeout, final int maxAttempts) {
         this(clusterNodes, connectionTimeout, soTimeout, maxAttempts, new PoolConfig());
     }
 
@@ -81,7 +70,6 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param properties the properties
      */
     public RedisClusterConnPool(final Properties properties) {
-
         this(new PoolConfig(), properties);
     }
 
@@ -92,19 +80,11 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param properties the properties
      */
     public RedisClusterConnPool(final PoolConfig poolConfig, final Properties properties) {
-
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-
-        for (String hostAndPort : properties.getProperty(RedisConfig.CLUSTER_PROPERTY).split(","))
-
-            jedisClusterNodes.add(new HostAndPort(hostAndPort.split(":")[0], Integer.valueOf(hostAndPort.split(":")[1])));
-
+        for (String hostAndPort : properties.getProperty(RedisConfig.CLUSTER_PROPERTY).split(",")) jedisClusterNodes.add(new HostAndPort(hostAndPort.split(":")[0], Integer.valueOf(hostAndPort.split(":")[1])));
         int timeout = Integer.parseInt(properties.getProperty(RedisConfig.TIMEOUT_PROPERTY, String.valueOf(RedisConfig.DEFAULT_TIMEOUT)));
-
         int maxAttempts = Integer.valueOf(properties.getProperty(RedisConfig.MAXATTE_PROPERTY, String.valueOf(RedisConfig.DEFAULT_MAXATTE)));
-
         String password = properties.getProperty(RedisConfig.PASSWORD_PROPERTY, RedisConfig.DEFAULT_PASSWORD);
-
         jedisCluster = new JedisCluster(jedisClusterNodes, timeout, timeout, maxAttempts, password, poolConfig);
     }
 
@@ -115,7 +95,6 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param clusterNodes the cluster nodes
      */
     public RedisClusterConnPool(final PoolConfig poolConfig, final Set<HostAndPort> clusterNodes) {
-
         this(poolConfig, clusterNodes, RedisConfig.DEFAULT_PASSWORD);
     }
 
@@ -127,7 +106,6 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param password     the password
      */
     public RedisClusterConnPool(final PoolConfig poolConfig, final Set<HostAndPort> clusterNodes, final String password) {
-
         this(poolConfig, clusterNodes, password, RedisConfig.DEFAULT_TIMEOUT);
     }
 
@@ -140,7 +118,6 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param timeout      the timeout
      */
     public RedisClusterConnPool(final PoolConfig poolConfig, final Set<HostAndPort> clusterNodes, final String password, final int timeout) {
-
         this(clusterNodes, timeout, timeout, RedisConfig.DEFAULT_MAXATTE, password, poolConfig);
     }
 
@@ -152,11 +129,7 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param maxAttempts  the max attempts
      * @param poolConfig   the pool config
      */
-    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes,
-                                final int timeout,
-                                final int maxAttempts,
-                                final PoolConfig poolConfig) {
-
+    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes, final int timeout, final int maxAttempts, final PoolConfig poolConfig) {
         this(clusterNodes, timeout, timeout, maxAttempts, RedisConfig.DEFAULT_PASSWORD, poolConfig);
     }
 
@@ -169,12 +142,7 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param maxAttempts       the max attempts
      * @param poolConfig        the pool config
      */
-    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes,
-                                final int connectionTimeout,
-                                final int soTimeout,
-                                final int maxAttempts,
-                                final PoolConfig poolConfig) {
-
+    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes, final int connectionTimeout, final int soTimeout, final int maxAttempts, final PoolConfig poolConfig) {
         this(clusterNodes, connectionTimeout, soTimeout, maxAttempts, RedisConfig.DEFAULT_PASSWORD, poolConfig);
     }
 
@@ -188,30 +156,23 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @param password          the password
      * @param poolConfig        the pool config
      */
-    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes,
-                                final int connectionTimeout,
-                                final int soTimeout,
-                                final int maxAttempts,
-                                final String password,
-                                final PoolConfig poolConfig) {
-
+    public RedisClusterConnPool(final Set<HostAndPort> clusterNodes, final int connectionTimeout, final int soTimeout, final int maxAttempts, final String password, final PoolConfig poolConfig) {
         jedisCluster = new JedisCluster(clusterNodes, connectionTimeout, soTimeout, maxAttempts, password, poolConfig);
     }
 
     @Override
     public JedisCluster getConnection() {
-
-        return jedisCluster;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(JedisCluster conn) {
-        // nothing to do...
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(JedisCluster conn) {
-        // nothing to do...
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -220,7 +181,6 @@ public class RedisClusterConnPool implements ConnectionPool<JedisCluster> {
      * @throws IOException the io exception
      */
     public void close() throws IOException {
-
-        jedisCluster.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

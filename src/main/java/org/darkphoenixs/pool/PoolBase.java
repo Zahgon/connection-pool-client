@@ -18,7 +18,6 @@ package org.darkphoenixs.pool;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-
 import java.io.Closeable;
 import java.io.Serializable;
 
@@ -58,8 +57,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @param poolConfig 池配置
      * @param factory    池对象工厂
      */
-    public PoolBase(final GenericObjectPoolConfig poolConfig,
-                    PooledObjectFactory<T> factory) {
+    public PoolBase(final GenericObjectPoolConfig poolConfig, PooledObjectFactory<T> factory) {
         this.initPool(poolConfig, factory);
     }
 
@@ -70,12 +68,8 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @param poolConfig 池配置
      * @param factory    池对象工厂
      */
-    protected void initPool(final GenericObjectPoolConfig poolConfig,
-                            PooledObjectFactory<T> factory) {
-        if (this.internalPool != null)
-            this.destroy();
-
-        this.internalPool = new GenericObjectPool<T>(factory, poolConfig);
+    protected void initPool(final GenericObjectPoolConfig poolConfig, PooledObjectFactory<T> factory) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -83,7 +77,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * <p>Description: 销毁对象池</p>
      */
     protected void destroy() {
-        this.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -93,12 +87,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 池对象
      */
     protected T getResource() {
-        try {
-            return internalPool.borrowObject();
-        } catch (Exception e) {
-            throw new ConnectionException(
-                    "Could not get a resource from the pool", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -108,13 +97,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @param resource 池对象
      */
     protected void returnResource(final T resource) {
-        if (null != resource)
-            try {
-                internalPool.returnObject(resource);
-            } catch (Exception e) {
-                throw new ConnectionException(
-                        "Could not return the resource to the pool", e);
-            }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -124,13 +107,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @param resource 池对象
      */
     protected void invalidateResource(final T resource) {
-        if (null != resource)
-            try {
-                internalPool.invalidateObject(resource);
-            } catch (Exception e) {
-                throw new ConnectionException(
-                        "Could not invalidate the resource to the pool", e);
-            }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -140,11 +117,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 激活数
      */
     public int getNumActive() {
-        if (isInactived()) {
-            return -1;
-        }
-
-        return this.internalPool.getNumActive();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -154,11 +127,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 空闲数
      */
     public int getNumIdle() {
-        if (isInactived()) {
-            return -1;
-        }
-
-        return this.internalPool.getNumIdle();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -168,11 +137,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 等待数
      */
     public int getNumWaiters() {
-        if (isInactived()) {
-            return -1;
-        }
-
-        return this.internalPool.getNumWaiters();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -182,11 +147,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 平均等待时间
      */
     public long getMeanBorrowWaitTimeMillis() {
-        if (isInactived()) {
-            return -1;
-        }
-
-        return this.internalPool.getMeanBorrowWaitTimeMillis();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -196,11 +157,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 最大等待时间
      */
     public long getMaxBorrowWaitTimeMillis() {
-        if (isInactived()) {
-            return -1;
-        }
-
-        return this.internalPool.getMaxBorrowWaitTimeMillis();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -210,12 +167,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @return 是否关闭
      */
     public boolean isClosed() {
-        try {
-            return this.internalPool.isClosed();
-        } catch (Exception e) {
-            throw new ConnectionException(
-                    "Could not check closed from the pool", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -228,8 +180,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
         try {
             return this.internalPool == null || this.internalPool.isClosed();
         } catch (Exception e) {
-            throw new ConnectionException(
-                    "Could not check inactived from the pool", e);
+            throw new ConnectionException("Could not check inactived from the pool", e);
         }
     }
 
@@ -240,13 +191,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * @param count 池对象数量
      */
     protected void addObjects(final int count) {
-        try {
-            for (int i = 0; i < count; i++) {
-                this.internalPool.addObject();
-            }
-        } catch (Exception e) {
-            throw new ConnectionException("Error trying to add idle objects", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -254,11 +199,7 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * <p>Description: 清除对象池</p>
      */
     public void clear() {
-        try {
-            this.internalPool.clear();
-        } catch (Exception e) {
-            throw new ConnectionException("Could not clear the pool", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -266,10 +207,6 @@ public abstract class PoolBase<T> implements Closeable, Serializable {
      * <p>Description: 关闭对象池</p>
      */
     public void close() {
-        try {
-            this.internalPool.close();
-        } catch (Exception e) {
-            throw new ConnectionException("Could not destroy the pool", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

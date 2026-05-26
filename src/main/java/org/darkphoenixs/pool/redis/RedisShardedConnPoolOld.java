@@ -25,7 +25,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.util.Hashing;
-
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -40,8 +39,7 @@ import java.util.regex.Pattern;
  * @since 2015年9月19日
  */
 @Deprecated
-public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
-        ConnectionPool<ShardedJedis> {
+public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements ConnectionPool<ShardedJedis> {
 
     /**
      * serialVersionUID
@@ -55,8 +53,7 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
      * @param poolConfig 池配置
      * @param shards     分片列表
      */
-    public RedisShardedConnPoolOld(final PoolConfig poolConfig,
-                                   List<JedisShardInfo> shards) {
+    public RedisShardedConnPoolOld(final PoolConfig poolConfig, List<JedisShardInfo> shards) {
         this(poolConfig, shards, Hashing.MURMUR_HASH);
     }
 
@@ -68,8 +65,7 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
      * @param shards     分片列表
      * @param algo       数字哈希
      */
-    public RedisShardedConnPoolOld(final PoolConfig poolConfig,
-                                   List<JedisShardInfo> shards, Hashing algo) {
+    public RedisShardedConnPoolOld(final PoolConfig poolConfig, List<JedisShardInfo> shards, Hashing algo) {
         this(poolConfig, shards, algo, null);
     }
 
@@ -81,8 +77,7 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
      * @param shards        分片列表
      * @param keyTagPattern 键表达式
      */
-    public RedisShardedConnPoolOld(final PoolConfig poolConfig,
-                                   List<JedisShardInfo> shards, Pattern keyTagPattern) {
+    public RedisShardedConnPoolOld(final PoolConfig poolConfig, List<JedisShardInfo> shards, Pattern keyTagPattern) {
         this(poolConfig, shards, Hashing.MURMUR_HASH, keyTagPattern);
     }
 
@@ -95,39 +90,23 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
      * @param algo          数字哈希
      * @param keyTagPattern 键表达式
      */
-    public RedisShardedConnPoolOld(final PoolConfig poolConfig,
-                                   List<JedisShardInfo> shards, Hashing algo, Pattern keyTagPattern) {
-        initPool(poolConfig, new RedisShardedConnFactory(shards, algo,
-                keyTagPattern));
+    public RedisShardedConnPoolOld(final PoolConfig poolConfig, List<JedisShardInfo> shards, Hashing algo, Pattern keyTagPattern) {
+        initPool(poolConfig, new RedisShardedConnFactory(shards, algo, keyTagPattern));
     }
 
     @Override
     public ShardedJedis getConnection() {
-
-        return super.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(ShardedJedis conn) {
-
-        boolean broken = false;
-
-        for (Jedis jedis : conn.getAllShards())
-            if (jedis.getClient().isBroken()) {
-                broken = true;
-                break;
-            }
-
-        if (broken)
-            super.invalidateResource(conn);
-        else
-            super.returnResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(ShardedJedis conn) {
-
-        super.invalidateResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -139,21 +118,23 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
      * @see ConnectionFactory
      * @since 2015年9月19日
      */
-    protected class RedisShardedConnFactory implements
-            ConnectionFactory<ShardedJedis> {
+    protected class RedisShardedConnFactory implements ConnectionFactory<ShardedJedis> {
 
         /**
          * serialVersionUID
          */
         private static final long serialVersionUID = -8620587542840002906L;
+
         /**
          * shards
          */
         private List<JedisShardInfo> shards;
+
         /**
          * algo
          */
         private Hashing algo;
+
         /**
          * keyTagPattern
          */
@@ -167,8 +148,7 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
          * @param algo          数字哈希
          * @param keyTagPattern 键表达式
          */
-        public RedisShardedConnFactory(List<JedisShardInfo> shards,
-                                       Hashing algo, Pattern keyTagPattern) {
+        public RedisShardedConnFactory(List<JedisShardInfo> shards, Hashing algo, Pattern keyTagPattern) {
             this.shards = shards;
             this.algo = algo;
             this.keyTagPattern = keyTagPattern;
@@ -176,61 +156,32 @@ public class RedisShardedConnPoolOld extends PoolBase<ShardedJedis> implements
 
         @Override
         public PooledObject<ShardedJedis> makeObject() throws Exception {
-            ShardedJedis jedis = this.createConnection();
-            return new DefaultPooledObject<ShardedJedis>(jedis);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
-        public void destroyObject(PooledObject<ShardedJedis> pooledShardedJedis)
-                throws Exception {
-            final ShardedJedis shardedJedis = pooledShardedJedis.getObject();
-            for (Jedis jedis : shardedJedis.getAllShards()) {
-                try {
-                    try {
-                        jedis.quit();
-                    } catch (Exception e) {
-
-                    }
-                    jedis.disconnect();
-                } catch (Exception e) {
-
-                }
-            }
+        public void destroyObject(PooledObject<ShardedJedis> pooledShardedJedis) throws Exception {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
-        public boolean validateObject(
-                PooledObject<ShardedJedis> pooledShardedJedis) {
-            try {
-                ShardedJedis jedis = pooledShardedJedis.getObject();
-                for (Jedis shard : jedis.getAllShards()) {
-                    if (!shard.ping().equals("PONG")) {
-                        return false;
-                    }
-                }
-                return true;
-            } catch (Exception ex) {
-                return false;
-            }
+        public boolean validateObject(PooledObject<ShardedJedis> pooledShardedJedis) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
-        public void activateObject(PooledObject<ShardedJedis> p)
-                throws Exception {
-
+        public void activateObject(PooledObject<ShardedJedis> p) throws Exception {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
-        public void passivateObject(PooledObject<ShardedJedis> p)
-                throws Exception {
-
+        public void passivateObject(PooledObject<ShardedJedis> p) throws Exception {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public ShardedJedis createConnection() throws Exception {
-            ShardedJedis jedis = new ShardedJedis(shards, algo, keyTagPattern);
-            return jedis;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
-
 }

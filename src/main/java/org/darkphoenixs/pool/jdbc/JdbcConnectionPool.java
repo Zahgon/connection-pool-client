@@ -18,7 +18,6 @@ package org.darkphoenixs.pool.jdbc;
 import org.darkphoenixs.pool.ConnectionPool;
 import org.darkphoenixs.pool.PoolBase;
 import org.darkphoenixs.pool.PoolConfig;
-
 import java.sql.Connection;
 import java.util.Properties;
 
@@ -44,7 +43,6 @@ public class JdbcConnectionPool extends PoolBase<Connection> implements Connecti
      * <p>Description: 默认构造方法</p>
      */
     public JdbcConnectionPool() {
-
         this(JdbcConfig.DEFAULT_DRIVER_CLASS, JdbcConfig.DEFAULT_JDBC_URL, JdbcConfig.DEFAULT_JDBC_USERNAME, JdbcConfig.DEFAULT_JDBC_PASSWORD);
     }
 
@@ -55,7 +53,6 @@ public class JdbcConnectionPool extends PoolBase<Connection> implements Connecti
      * @param properties JDBC参数
      */
     public JdbcConnectionPool(final Properties properties) {
-
         this(new PoolConfig(), properties);
     }
 
@@ -69,7 +66,6 @@ public class JdbcConnectionPool extends PoolBase<Connection> implements Connecti
      * @param password    数据密码
      */
     public JdbcConnectionPool(final String driverClass, final String jdbcUrl, final String username, final String password) {
-
         this(new PoolConfig(), driverClass, jdbcUrl, username, password);
     }
 
@@ -81,7 +77,6 @@ public class JdbcConnectionPool extends PoolBase<Connection> implements Connecti
      * @param properties JDBC参数
      */
     public JdbcConnectionPool(final PoolConfig poolConfig, final Properties properties) {
-
         super(poolConfig, new JdbcConnectionFactory(properties));
     }
 
@@ -96,26 +91,21 @@ public class JdbcConnectionPool extends PoolBase<Connection> implements Connecti
      * @param password    数据密码
      */
     public JdbcConnectionPool(final PoolConfig poolConfig, final String driverClass, final String jdbcUrl, final String username, final String password) {
-
         super(poolConfig, new JdbcConnectionFactory(driverClass, jdbcUrl, username, password));
     }
 
     @Override
     public Connection getConnection() {
-
-        return super.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(Connection conn) {
-
-        super.returnResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(Connection conn) {
-
-        super.invalidateResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

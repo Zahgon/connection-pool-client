@@ -20,7 +20,6 @@ import org.apache.hadoop.hbase.client.Connection;
 import org.darkphoenixs.pool.ConnectionPool;
 import org.darkphoenixs.pool.PoolBase;
 import org.darkphoenixs.pool.PoolConfig;
-
 import java.util.Properties;
 
 /**
@@ -45,7 +44,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * <p>Description: 默认构造方法</p>
      */
     public HbaseConnectionPool() {
-
         this(HbaseConfig.DEFAULT_HOST, HbaseConfig.DEFAULT_PORT);
     }
 
@@ -57,7 +55,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @param port 端口
      */
     public HbaseConnectionPool(final String host, final String port) {
-
         this(new PoolConfig(), host, port, HbaseConfig.DEFAULT_MASTER, HbaseConfig.DEFAULT_ROOTDIR);
     }
 
@@ -71,7 +68,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @param rootdir hdfs目录
      */
     public HbaseConnectionPool(final String host, final String port, final String master, final String rootdir) {
-
         this(new PoolConfig(), host, port, master, rootdir);
     }
 
@@ -82,7 +78,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @param hadoopConfiguration hbase配置
      */
     public HbaseConnectionPool(final Configuration hadoopConfiguration) {
-
         this(new PoolConfig(), hadoopConfiguration);
     }
 
@@ -95,7 +90,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @param port       端口
      */
     public HbaseConnectionPool(final PoolConfig poolConfig, final String host, final String port) {
-
         this(poolConfig, host, port, HbaseConfig.DEFAULT_MASTER, HbaseConfig.DEFAULT_ROOTDIR);
     }
 
@@ -107,7 +101,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @param hadoopConfiguration hbase配置
      */
     public HbaseConnectionPool(final PoolConfig poolConfig, final Configuration hadoopConfiguration) {
-
         super(poolConfig, new HbaseConnectionFactory(hadoopConfiguration));
     }
 
@@ -122,7 +115,6 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @param rootdir    hdfs目录
      */
     public HbaseConnectionPool(final PoolConfig poolConfig, final String host, final String port, final String master, final String rootdir) {
-
         super(poolConfig, new HbaseConnectionFactory(host, port, master, rootdir));
     }
 
@@ -132,26 +124,21 @@ public class HbaseConnectionPool extends PoolBase<Connection> implements Connect
      * @since 1.2.1
      */
     public HbaseConnectionPool(final PoolConfig poolConfig, final Properties properties) {
-
         super(poolConfig, new HbaseConnectionFactory(properties));
     }
 
     @Override
     public Connection getConnection() {
-
-        return super.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(Connection conn) {
-
-        super.returnResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(Connection conn) {
-
-        super.invalidateResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

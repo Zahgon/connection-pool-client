@@ -19,7 +19,6 @@ import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.darkphoenixs.pool.ConnectionException;
 import org.darkphoenixs.pool.ConnectionFactory;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -68,23 +67,18 @@ class JdbcConnectionFactory implements ConnectionFactory<Connection> {
      * @param properties JDBC参数
      */
     public JdbcConnectionFactory(final Properties properties) {
-
         this.driverClass = properties.getProperty(JdbcConfig.DRIVER_CLASS_PROPERTY);
         if (driverClass == null)
             throw new ConnectionException("[" + JdbcConfig.DRIVER_CLASS_PROPERTY + "] is required !");
-
         this.jdbcUrl = properties.getProperty(JdbcConfig.JDBC_URL_PROPERTY);
         if (jdbcUrl == null)
             throw new ConnectionException("[" + JdbcConfig.JDBC_URL_PROPERTY + "] is required !");
-
         this.username = properties.getProperty(JdbcConfig.JDBC_USERNAME_PROPERTY);
         if (username == null)
             throw new ConnectionException("[" + JdbcConfig.JDBC_USERNAME_PROPERTY + "] is required !");
-
         this.password = properties.getProperty(JdbcConfig.JDBC_PASSWORD_PROPERTY);
         if (password == null)
             throw new ConnectionException("[" + JdbcConfig.JDBC_PASSWORD_PROPERTY + "] is required !");
-
         this.loadDriver();
     }
 
@@ -98,7 +92,6 @@ class JdbcConnectionFactory implements ConnectionFactory<Connection> {
      * @param password    数据密码
      */
     public JdbcConnectionFactory(final String driverClass, final String jdbcUrl, final String username, final String password) {
-
         this.driverClass = driverClass;
         this.jdbcUrl = jdbcUrl;
         this.username = username;
@@ -111,66 +104,40 @@ class JdbcConnectionFactory implements ConnectionFactory<Connection> {
      * <p>Description: 加载驱动</p>
      */
     private void loadDriver() {
-
         try {
             Class.forName(driverClass);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public PooledObject<Connection> makeObject() throws Exception {
-
-        Connection connection = this.createConnection();
-
-        return new DefaultPooledObject<Connection>(connection);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void destroyObject(PooledObject<Connection> p) throws Exception {
-
-        Connection connection = p.getObject();
-
-        if (connection != null)
-
-            connection.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean validateObject(PooledObject<Connection> p) {
-
-        Connection connection = p.getObject();
-
-        if (connection != null)
-            try {
-                return ((!connection.isClosed()) && (connection.isValid(1)));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void activateObject(PooledObject<Connection> p) throws Exception {
-        // TODO Auto-generated method stub
-
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void passivateObject(PooledObject<Connection> p) throws Exception {
-        // TODO Auto-generated method stub
-
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Connection createConnection() throws Exception {
-
-        Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
-
-        return connection;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

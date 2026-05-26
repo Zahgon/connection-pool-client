@@ -18,7 +18,6 @@ package org.darkphoenixs.pool.http;
 import org.darkphoenixs.pool.ConnectionPool;
 import org.darkphoenixs.pool.PoolBase;
 import org.darkphoenixs.pool.PoolConfig;
-
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.util.Map;
@@ -41,7 +40,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * Instantiates a new Http connection pool.
      */
     public HttpConnectionPool() {
-
         this(HttpConfig.DEFAULT_URL);
     }
 
@@ -51,7 +49,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param url the url
      */
     public HttpConnectionPool(final String url) {
-
         this(url, HttpConfig.DEFAULT_METHOD);
     }
 
@@ -62,7 +59,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param url        the url
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final String url) {
-
         this(poolConfig, url, HttpConfig.DEFAULT_METHOD);
     }
 
@@ -74,7 +70,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param url        the url
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final Proxy proxy, final String url) {
-
         this(poolConfig, proxy, url, HttpConfig.DEFAULT_METHOD);
     }
 
@@ -85,7 +80,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param url   the url
      */
     public HttpConnectionPool(final Proxy proxy, final String url) {
-
         this(proxy, url, HttpConfig.DEFAULT_METHOD);
     }
 
@@ -96,7 +90,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param method the method
      */
     public HttpConnectionPool(final String url, final String method) {
-
         this(new PoolConfig(), url, method);
     }
 
@@ -108,7 +101,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param method the method
      */
     public HttpConnectionPool(final Proxy proxy, final String url, final String method) {
-
         this(new PoolConfig(), proxy, url, method);
     }
 
@@ -120,7 +112,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param method     the method
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final String url, final String method) {
-
         this(poolConfig, url, method, HttpConfig.DEFAULT_IMEOUT, HttpConfig.DEFAULT_IMEOUT);
     }
 
@@ -133,7 +124,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param method     the method
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final Proxy proxy, final String url, final String method) {
-
         this(poolConfig, proxy, url, method, HttpConfig.DEFAULT_IMEOUT, HttpConfig.DEFAULT_IMEOUT);
     }
 
@@ -147,7 +137,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param readTimeout    the read timeout
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final String url, final String method, final int connectTimeout, final int readTimeout) {
-
         this(poolConfig, url, method, connectTimeout, readTimeout, HttpConfig.DEFAULT_HEADER);
     }
 
@@ -162,7 +151,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param readTimeout    the read timeout
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final Proxy proxy, final String url, final String method, final int connectTimeout, final int readTimeout) {
-
         this(poolConfig, proxy, url, method, connectTimeout, readTimeout, HttpConfig.DEFAULT_HEADER);
     }
 
@@ -177,7 +165,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param header         the header
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final String url, final String method, final int connectTimeout, final int readTimeout, final Map<String, String> header) {
-
         this(poolConfig, null, url, method, connectTimeout, readTimeout, header);
     }
 
@@ -188,7 +175,6 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param properties the properties
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final Properties properties) {
-
         super(poolConfig, new HttpConnectionFactory(properties));
     }
 
@@ -204,22 +190,21 @@ public class HttpConnectionPool extends PoolBase<HttpURLConnection> implements C
      * @param header         the header
      */
     public HttpConnectionPool(final PoolConfig poolConfig, final Proxy proxy, final String url, final String method, final int connectTimeout, final int readTimeout, final Map<String, String> header) {
-
         super(poolConfig, new HttpConnectionFactory(proxy, url, method, connectTimeout, readTimeout, header));
     }
 
     @Override
     public HttpURLConnection getConnection() {
-        return super.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(HttpURLConnection conn) {
-        super.returnResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(HttpURLConnection conn) {
-        super.invalidateResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

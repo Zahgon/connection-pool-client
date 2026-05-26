@@ -20,7 +20,6 @@ import org.darkphoenixs.pool.PoolBase;
 import org.darkphoenixs.pool.PoolConfig;
 import redis.clients.jedis.Client;
 import redis.clients.jedis.Jedis;
-
 import java.util.Properties;
 
 /**
@@ -81,8 +80,7 @@ public class RedisConnectionPoolOld extends PoolBase<Jedis> implements Connectio
      * @param timeout    超时
      * @param password   密码
      */
-    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port,
-                                  final int timeout, final String password) {
+    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port, final int timeout, final String password) {
         this(poolConfig, host, port, timeout, password, RedisConfig.DEFAULT_DATABASE, RedisConfig.DEFAULT_CLIENTNAME);
     }
 
@@ -107,8 +105,7 @@ public class RedisConnectionPoolOld extends PoolBase<Jedis> implements Connectio
      * @param port       端口
      * @param timeout    超时
      */
-    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port,
-                                  final int timeout) {
+    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port, final int timeout) {
         this(poolConfig, host, port, timeout, RedisConfig.DEFAULT_PASSWORD, RedisConfig.DEFAULT_DATABASE);
     }
 
@@ -123,8 +120,7 @@ public class RedisConnectionPoolOld extends PoolBase<Jedis> implements Connectio
      * @param password   密码
      * @param database   数据库
      */
-    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port,
-                                  final int timeout, final String password, final int database) {
+    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port, final int timeout, final String password, final int database) {
         this(poolConfig, host, port, timeout, password, database, RedisConfig.DEFAULT_CLIENTNAME);
     }
 
@@ -140,10 +136,8 @@ public class RedisConnectionPoolOld extends PoolBase<Jedis> implements Connectio
      * @param database   数据库
      * @param clientName 客户端名称
      */
-    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port,
-                                  final int timeout, final String password, final int database, final String clientName) {
-        this(poolConfig, host, port, timeout, timeout, password, database,
-                clientName);
+    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port, final int timeout, final String password, final int database, final String clientName) {
+        this(poolConfig, host, port, timeout, timeout, password, database, clientName);
     }
 
     /**
@@ -159,11 +153,8 @@ public class RedisConnectionPoolOld extends PoolBase<Jedis> implements Connectio
      * @param database          数据库
      * @param clientName        客户端名称
      */
-    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port,
-                                  final int connectionTimeout, final int soTimeout, final String password,
-                                  final int database, final String clientName) {
-        super(poolConfig, new RedisConnectionFactoryOld(host, port, connectionTimeout,
-                soTimeout, password, database, clientName));
+    public RedisConnectionPoolOld(final PoolConfig poolConfig, final String host, final int port, final int connectionTimeout, final int soTimeout, final String password, final int database, final String clientName) {
+        super(poolConfig, new RedisConnectionFactoryOld(host, port, connectionTimeout, soTimeout, password, database, clientName));
     }
 
     /**
@@ -172,31 +163,21 @@ public class RedisConnectionPoolOld extends PoolBase<Jedis> implements Connectio
      * @since 1.2.1
      */
     public RedisConnectionPoolOld(final PoolConfig poolConfig, final Properties properties) {
-
         super(poolConfig, new RedisConnectionFactoryOld(properties));
     }
 
     @Override
     public Jedis getConnection() {
-
-        return super.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(Jedis conn) {
-
-        Client client = conn.getClient();
-
-        if (client.isBroken())
-
-            super.invalidateResource(conn);
-        else
-            super.returnResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(Jedis conn) {
-
-        super.invalidateResource(conn);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

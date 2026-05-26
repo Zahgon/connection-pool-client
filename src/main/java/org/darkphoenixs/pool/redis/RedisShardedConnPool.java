@@ -6,7 +6,6 @@ import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 import redis.clients.util.Hashing;
-
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -29,9 +28,7 @@ public class RedisShardedConnPool implements ConnectionPool<ShardedJedis> {
      * @param poolConfig the pool config
      * @param shards     the shards
      */
-    public RedisShardedConnPool(final PoolConfig poolConfig,
-                                final List<JedisShardInfo> shards) {
-
+    public RedisShardedConnPool(final PoolConfig poolConfig, final List<JedisShardInfo> shards) {
         this(poolConfig, shards, Hashing.MURMUR_HASH);
     }
 
@@ -42,10 +39,7 @@ public class RedisShardedConnPool implements ConnectionPool<ShardedJedis> {
      * @param shards     the shards
      * @param algo       the algo
      */
-    public RedisShardedConnPool(final PoolConfig poolConfig,
-                                final List<JedisShardInfo> shards,
-                                final Hashing algo) {
-
+    public RedisShardedConnPool(final PoolConfig poolConfig, final List<JedisShardInfo> shards, final Hashing algo) {
         this(poolConfig, shards, algo, null);
     }
 
@@ -56,10 +50,7 @@ public class RedisShardedConnPool implements ConnectionPool<ShardedJedis> {
      * @param shards        the shards
      * @param keyTagPattern the key tag pattern
      */
-    public RedisShardedConnPool(final PoolConfig poolConfig,
-                                final List<JedisShardInfo> shards,
-                                final Pattern keyTagPattern) {
-
+    public RedisShardedConnPool(final PoolConfig poolConfig, final List<JedisShardInfo> shards, final Pattern keyTagPattern) {
         this(poolConfig, shards, Hashing.MURMUR_HASH, keyTagPattern);
     }
 
@@ -71,41 +62,29 @@ public class RedisShardedConnPool implements ConnectionPool<ShardedJedis> {
      * @param algo          the algo
      * @param keyTagPattern the key tag pattern
      */
-    public RedisShardedConnPool(final PoolConfig poolConfig,
-                                final List<JedisShardInfo> shards,
-                                final Hashing algo,
-                                final Pattern keyTagPattern) {
-
+    public RedisShardedConnPool(final PoolConfig poolConfig, final List<JedisShardInfo> shards, final Hashing algo, final Pattern keyTagPattern) {
         this.pool = new ShardedJedisPool(poolConfig, shards, algo, keyTagPattern);
     }
 
     @Override
     public ShardedJedis getConnection() {
-
-        return pool.getResource();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void returnConnection(ShardedJedis conn) {
-
-        if (conn != null)
-
-            conn.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void invalidateConnection(ShardedJedis conn) {
-
-        if (conn != null)
-
-            conn.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Close.
      */
     public void close() {
-
-        pool.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }
